@@ -61,7 +61,7 @@ public class Main {
 			Eleicao.listarEleitor();
 			break;
 		case 6:
-			Eleicao.deletarCandidato();
+			Eleicao.deletarEleitor();
 			break;
 		case 7:
 			System.out.println("A eleicao esta preste a comecar, para iniciar digite 1 e para encerrar digite -1");

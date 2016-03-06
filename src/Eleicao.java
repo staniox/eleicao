@@ -1,8 +1,7 @@
 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class Eleicao {
 	
@@ -70,9 +69,11 @@ public class Eleicao {
 			}
 			Main.candidatos[i][4]="1";
 			System.out.println("Candidato inserido com sucesso");
+			break;
 			}
 			
 		}
+		
 	}	
 	// metodo para listar candidatos
 	public static void listarCandidato(){
@@ -122,8 +123,50 @@ public class Eleicao {
 	
 	}
 
-
 public static void cadastrarEleitor(){
+		
+		
+		for (int i = 0; i < Main.eleitores.length; i++) {
+			if (i==Main.eleitores.length-1 && Integer.parseInt(Main.eleitores[i][2])==1) {
+				System.out.println("Não ha mais vagas para eleitores nessa eleicao. por favor delete um usuario ou inicie outra eleicao.");
+			}
+			else if (Integer.parseInt(Main.eleitores[i][2])==0) {
+				System.out.println("Insira o nome do eleitor:");
+				Main.eleitores[i][1]= input.next();
+				if (Main.eleitores[i][1]!=null) {
+					//tranquilo	
+				}
+				else {
+					while(Main.eleitores[i][1]==null){
+						System.out.println("Nome invalido. Insira o nome do eleitor:");
+						Main.eleitores[i][1]= input.next();	
+					}
+					}
+			
+			System.out.println("Insira o CPF do eleitor:");
+			Main.eleitores[i][0]= input.next();
+			if(Long.parseLong(Main.eleitores[i][0])>0){
+			//tranquilo favoravel
+			}
+			else {
+				System.out.println("CPF invalido ou ja cadastrado. Insira o CPF do eleitor: ");
+				while(input.nextInt()<=0){
+				Main.eleitores[i][0]=input.next();
+				}
+			}
+			
+			
+			Main.eleitores[i][2]="1";
+			System.out.println("Eleitor inserido com sucesso");
+			break;
+			}
+			
+		}
+		
+	}	
+
+
+/*public static void cadastrarEleitor(){
 	
 	
 	for (int i = 0; i < Main.eleitores.length; i++) {
@@ -159,48 +202,49 @@ public static void cadastrarEleitor(){
 		}
 		
 	}
-
+*/
 // metodo para listar eleitores
 public static void listarEleitor(){
-	int numero;
-	System.out.println("Insira o numero do eleitor que quer ver:");
+	Long numero;
+	System.out.println("Insira o CPF do eleitor que quer ver:");
 	System.out.println("(insira 0 para ver todos)");
-	System.out.println("Insira o numero: ");
-	numero=input.nextInt();
+	System.out.println("Insira o CPF: ");
+	numero=input.nextLong();
 	if (numero>0) {
 		for (int i = 0; i < Main.eleitores.length; i++) {
-			if (Integer.parseInt(Main.eleitores[i][0])==numero && Integer.parseInt(Main.eleitores[i][4])==1) {
-				System.out.printf("Numero: %s\nNome: %s\nPartido: %s\n\n", Main.eleitores[i][0],Main.eleitores[i][1],Main.eleitores[i][2]);
+			if (Long.parseLong(Main.eleitores[i][0])==numero && Long.parseLong(Main.eleitores[i][2])==1) {
+				System.out.printf("Nome: %s\nCPF: %s\nPartido: %s\n\n", Main.eleitores[i][1],Main.eleitores[i][0],Main.eleitores[i][2]);
 			}
 			
 		}
 	}
 	else if (numero==0) {
 		for (int i = 0; i < Main.eleitores.length; i++) {
-			if (Integer.parseInt(Main.eleitores[i][2])==1) {
-				System.out.printf("Numero: %s\nNome: %s\nPartido: %s\n\n", Main.eleitores[i][0],Main.eleitores[i][1],Main.eleitores[i][2]);
+			if (Long.parseLong(Main.eleitores[i][2])==1) {
+				System.out.printf("Nome: %s\nCPF: %s\nPartido: %s\n\n", Main.eleitores[i][1],Main.eleitores[i][0],Main.eleitores[i][2]);
 			}
 	}
 	
 }
 	else {
-		System.out.println("Numero invalido ou não cadastrado");
+		System.out.println("Cpf invalido ou não cadastrado");
 	}
 
 
 
 }
-public void deletarEleitor () {
-	System.out.println("Insira o numero do eleitor que deseja excluir: ");
-	int numero =input.nextInt();
+public static void deletarEleitor () {
+	System.out.println("Insira o CPF do eleitor que deseja excluir: ");
+	Long numero =input.nextLong();
 	if (numero>0) {
 		for (int i = 0; i < Main.eleitores.length; i++) {
-			if (Integer.parseInt(Main.eleitores[i][0])==numero && Integer.parseInt(Main.eleitores[i][2])==1) {
+			if (Long.parseLong(Main.eleitores[i][0])==numero && Integer.parseInt(Main.eleitores[i][2])==1) {
 				Main.eleitores[i][2]="0";
-				System.out.printf("Eleitor excluido com sucesso", Main.eleitores[i][0],Main.eleitores[i][1],Main.eleitores[i][2]);
+				System.out.printf("Eleitor excluido com sucesso");
+				break;
 			}
-		else {
-			System.out.println("Numero invalido ou nao cadastrado");
+		else if (i==Main.eleitores.length-1 && Long.parseLong(Main.eleitores[i][0])!=numero) {
+			System.out.println("CPF invalido ou nao cadastrado");
 		}
 			
 		}
