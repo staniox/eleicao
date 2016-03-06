@@ -31,7 +31,7 @@ public class Eleicao {
             posicaoInsercao++;
         }
 
-        if(posicaoInsercao > Main.candidatos.length) {
+        if(posicaoInsercao >= Main.candidatos.length) {
             // Não há mais posições disponíveis. Portanto, devemos sair imediatamente do método com o comando return.
             System.out.println("Não ha mais vagas para candidatos nessa eleicao. por favor delete um usuario ou inicie outra eleicao.");
             return;
