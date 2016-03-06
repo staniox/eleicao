@@ -112,7 +112,8 @@ public class Eleicao {
 			for (int i = 0; i < Main.candidatos.length; i++) {
 				if (Integer.parseInt(Main.candidatos[i][0])==numero && Integer.parseInt(Main.candidatos[i][4])==1) {
 					Main.candidatos[i][4]="0";
-					System.out.printf("Candidato excluido com sucesso", Main.candidatos[i][0],Main.candidatos[i][1],Main.candidatos[i][2]);
+					System.out.printf("Candidato excluido com sucesso");
+					break;
 				}
 			else {
 				System.out.println("Numero invalido ou não cadastrado");
@@ -132,12 +133,12 @@ public static void cadastrarEleitor(){
 			}
 			else if (Integer.parseInt(Main.eleitores[i][2])==0) {
 				System.out.println("Insira o nome do eleitor:");
-				Main.eleitores[i][1]= input.next();
-				if (Main.eleitores[i][1]!=null) {
+				Main.eleitores[i][0]= input.next();
+				if (Main.eleitores[i][0]!=null) {
 					//tranquilo	
 				}
 				else {
-					while(Main.eleitores[i][1]==null){
+					while(Main.eleitores[i][0]==null){
 						System.out.println("Nome invalido. Insira o nome do eleitor:");
 						Main.eleitores[i][0]= input.next();	
 					}
@@ -151,7 +152,7 @@ public static void cadastrarEleitor(){
 			else {
 				System.out.println("CPF invalido ou ja cadastrado. Insira o CPF do eleitor: ");
 				while(input.nextInt()<=0){
-				Main.eleitores[i][0]=input.next();
+				Main.eleitores[i][1]=input.next();
 				}
 			}
 			
@@ -212,8 +213,8 @@ public static void listarEleitor(){
 	numero=input.nextLong();
 	if (numero>0) {
 		for (int i = 0; i < Main.eleitores.length; i++) {
-			if (Long.parseLong(Main.eleitores[i][0])==numero && Long.parseLong(Main.eleitores[i][2])==1) {
-				System.out.printf("Nome: %s\nCPF: %s\nPartido: %s\n\n", Main.eleitores[i][1],Main.eleitores[i][0],Main.eleitores[i][2]);
+			if (Long.parseLong(Main.eleitores[i][1])==numero && Long.parseLong(Main.eleitores[i][2])==1) {
+				System.out.printf("Nome: %s\nCPF: %s\n\n", Main.eleitores[i][0],Main.eleitores[i][1]);
 			}
 			
 		}
@@ -221,7 +222,7 @@ public static void listarEleitor(){
 	else if (numero==0) {
 		for (int i = 0; i < Main.eleitores.length; i++) {
 			if (Long.parseLong(Main.eleitores[i][2])==1) {
-				System.out.printf("Nome: %s\nCPF: %s\nPartido: %s\n\n", Main.eleitores[i][1],Main.eleitores[i][0],Main.eleitores[i][2]);
+				System.out.printf("Nome: %s\nCPF: %s\n\n", Main.eleitores[i][0],Main.eleitores[i][1]);
 			}
 	}
 	
@@ -238,28 +239,20 @@ public static void deletarEleitor () {
 	Long numero =input.nextLong();
 	if (numero>0) {
 		for (int i = 0; i < Main.eleitores.length; i++) {
-			if (Long.parseLong(Main.eleitores[i][0])==numero && Integer.parseInt(Main.eleitores[i][2])==1) {
+			if (Long.parseLong(Main.eleitores[i][1])==numero && Integer.parseInt(Main.eleitores[i][2])==1) {
 				Main.eleitores[i][2]="0";
-				System.out.printf("Eleitor excluido com sucesso");
+				System.out.printf("Eleitor excluido com sucesso\n\n");
 				break;
 			}
 		else if (i==Main.eleitores.length-1 && Long.parseLong(Main.eleitores[i][0])!=numero) {
-			System.out.println("CPF invalido ou nao cadastrado");
+			System.out.println("CPF invalido ou nao cadastrado\n\n");
 		}
 			
 		}
 	}
 
 }
-public static boolean validaCpf(String cpf){
-	int i =0;
-	for (i = 0; i < Main.eleitores.length; i++) {
-		if (Main.eleitores[i][1]==cpf) {
-			break;
-		}
-	}
-	return Main.eleitores[i-1][1]==cpf;
-}
+
 public static boolean validaCandidato(int num){
 	int i =0;
 	for (i = 0; i < Main.candidatos.length; i++) {
@@ -272,8 +265,8 @@ public static boolean validaCandidato(int num){
 }
 public static int retornaIndice(int num){
 	int i =0;
-	for (i = 0; i < Main.eleitores.length; i++) {
-		if (Integer.parseInt(Main.eleitores[i][1])==num) {
+	for (i = 0; i < Main.candidatos.length; i++) {
+		if (Integer.parseInt(Main.candidatos[i][0])==num) {
 			break;
 		}
 	}
@@ -285,26 +278,35 @@ public static int retornaIndice(int num){
 public static Long iniciarVotacao(){
 	System.out.println("Insira seu CPF: ");
 	String numero=input.next();
-	if (Long.parseLong(numero)!=-1) {
+	
+	if (Long.parseLong(numero)!=-1 ) {
 		
 			System.out.println("Insira o numero do candidato que deseja votar: ");
 			int numCandidato=input.nextInt();
 			if (validaCandidato(numCandidato)==true) {
 				int ind =retornaIndice(numCandidato);
 				Main.candidatos[ind][3]=Integer.toString(Integer.parseInt(Main.candidatos[ind][3])+1);
-				System.out.println(Main.candidatos[ind][3]);
+				System.out.println("Voto computado com sucesso!!!");
+				System.out.println();
+				
+			}
+			if(validaCandidato(numCandidato)==false) {
+				System.out.println("Voto nao computado. verifique CPF e numero do candidato");
+				return (long) 0;
 			}
 		
-		
+			
 	}
 	return Long.parseLong(numero);
+	
+	
 	
 }
 public static void vencedor (int num, boolean unico){
 	if (unico==true) {
 		for (int i = 0; i < Main.candidatos.length && num!=0; i++) {
 			if (Integer.parseInt(Main.candidatos[i][3])==num) {
-				System.out.printf("O novo presidente eh: %s com %s votos!!!\n",Main.candidatos[i][1],Main.candidatos[i][3]);
+				System.out.printf("O novo presidente eh: %s com %s votos!!!\n\n",Main.candidatos[i][1],Main.candidatos[i][3]);
 				
 			}
 		}

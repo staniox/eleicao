@@ -43,6 +43,7 @@ public class Main {
 		System.out.println("5 - Listar eleitor.");
 		System.out.println("6 - Deletar eleitor.");
 		System.out.println("7 - Iniciar Eleicao");
+		System.out.println("8 - Encerrar programa");
 		menu = input.nextInt();
 		switch (menu) {
 		case 1:
@@ -64,8 +65,8 @@ public class Main {
 			Eleicao.deletarEleitor();
 			break;
 		case 7:
-			
-			System.out.println("A eleicao esta preste a comecar, para iniciar digite 1 e para encerrar digite -1");
+			System.out.println("para a eleicao funcionar corretamente eh necessario que tenha cadastrado ao menos 2 candidatos e 3 eleitores. se deseja cadastrar cadastrar algum desses digite -1");
+			System.out.println("A eleicao esta preste a comecar, para iniciar digite 1 e para encerrar digite -1 no campo CPF ");
 			Long caso =input.nextLong();
 			if(caso==1){
 			
@@ -87,16 +88,22 @@ public class Main {
 						}
 						
 					}
-					System.out.println(vencedor);
+					System.out.println();
 					Eleicao.vencedor(vencedor, unicoVencedor);
+					
 					
 					
 				}
 			
 			
 			break;
+		case 8:
+			menu=8;
+			System.out.println("Fim de eleicao!!!");
+			break;
 
 		default:
+			System.out.println("Opção invalida. Insira uma opção do menu: ");
 			break;
 		}
 	}
