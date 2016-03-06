@@ -262,18 +262,18 @@ public static boolean validaCpf(String cpf){
 }
 public static boolean validaCandidato(int num){
 	int i =0;
-	for (i = 0; i < Main.eleitores.length; i++) {
-		if (Integer.parseInt(Main.eleitores[i][1])==num) {
+	for (i = 0; i < Main.candidatos.length; i++) {
+		if (Integer.parseInt(Main.candidatos[i][0])==num) {
 			break;
 		}
 	}
-	return Integer.parseInt(Main.eleitores[i-1][1])==num;
+	return Integer.parseInt(Main.candidatos[i][0])==num;
 	
 }
 public static int retornaIndice(int num){
 	int i =0;
 	for (i = 0; i < Main.eleitores.length; i++) {
-		if (Integer.parseInt(Main.eleitores[i-1][1])==num) {
+		if (Integer.parseInt(Main.eleitores[i][1])==num) {
 			break;
 		}
 	}
@@ -289,9 +289,10 @@ public static Long iniciarVotacao(){
 		
 			System.out.println("Insira o numero do candidato que deseja votar: ");
 			int numCandidato=input.nextInt();
-			if (validaCandidato(numCandidato)) {
+			if (validaCandidato(numCandidato)==true) {
 				int ind =retornaIndice(numCandidato);
-				Main.candidatos[ind][3]+=1;
+				Main.candidatos[ind][3]=Integer.toString(Integer.parseInt(Main.candidatos[ind][3])+1);
+				System.out.println(Main.candidatos[ind][3]);
 			}
 		
 		
@@ -304,7 +305,7 @@ public static void vencedor (int num, boolean unico){
 		for (int i = 0; i < Main.candidatos.length && num!=0; i++) {
 			if (Integer.parseInt(Main.candidatos[i][3])==num) {
 				System.out.printf("O novo presidente eh: %s com %s votos!!!\n",Main.candidatos[i][1],Main.candidatos[i][3]);
-				break;
+				
 			}
 		}
 	}
