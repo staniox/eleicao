@@ -72,7 +72,7 @@ public class Main {
 				while(caso!=-1){
 				caso=Eleicao.iniciarVotacao();
 				}}
-			else if (caso==-1) {
+			if (caso==-1) {
 					int vencedor=0;
 					boolean unicoVencedor=true;
 					for (int i = 0; i < candidatos.length; i++) {

@@ -139,13 +139,13 @@ public static void cadastrarEleitor(){
 				else {
 					while(Main.eleitores[i][1]==null){
 						System.out.println("Nome invalido. Insira o nome do eleitor:");
-						Main.eleitores[i][1]= input.next();	
+						Main.eleitores[i][0]= input.next();	
 					}
 					}
 			
 			System.out.println("Insira o CPF do eleitor:");
-			Main.eleitores[i][0]= input.next();
-			if(Long.parseLong(Main.eleitores[i][0])>0){
+			Main.eleitores[i][1]= input.next();
+			if(Long.parseLong(Main.eleitores[i][1])>0){
 			//tranquilo favoravel
 			}
 			else {
@@ -267,13 +267,13 @@ public static boolean validaCandidato(int num){
 			break;
 		}
 	}
-	return Integer.parseInt(Main.eleitores[i][1])==num;
+	return Integer.parseInt(Main.eleitores[i-1][1])==num;
 	
 }
 public static int retornaIndice(int num){
 	int i =0;
 	for (i = 0; i < Main.eleitores.length; i++) {
-		if (Integer.parseInt(Main.eleitores[i][1])==num) {
+		if (Integer.parseInt(Main.eleitores[i-1][1])==num) {
 			break;
 		}
 	}
@@ -303,7 +303,7 @@ public static void vencedor (int num, boolean unico){
 	if (unico==true) {
 		for (int i = 0; i < Main.candidatos.length; i++) {
 			if (Integer.parseInt(Main.candidatos[i][3])==num) {
-				System.out.printf("O novo presidente eh: %s com %d votos!!!\n",Main.candidatos[i][1],num);
+				System.out.printf("O novo presidente eh: %s com %s votos!!!\n",Main.candidatos[i][1],Main.candidatos[i][3]);
 			}
 		}
 	}
