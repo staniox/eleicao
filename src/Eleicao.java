@@ -1,35 +1,86 @@
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Eleicao {
-	ArrayList<Candidato> candidatos = new ArrayList<Candidato>();
+	Scanner input = new Scanner(System.in);
+	
 	//metodo q cria candidato
-	public boolean cadastrarCandidato(int numero,String nome,String partido){
-		boolean retorno=true;
-		Candidato candidato = new Candidato();
-		//verifica se o candidato eh repitido
-		if(candidatos.contains(candidato)){
-			return candidatos.contains(candidato.numero);
-		}
-		else{
-		candidatos.add(candidato);
-		return retorno;
-		}
-	}
-	// metodo para listar candidatos
-	public void listarCandidato(int numero){
-		//verifica se 
-		if (candidatos.contains(numero)) {
-			System.out.println("ola"+candidatos.contains(numero));
-		}
-		else if (numero==-1) {
+	public void cadastrarCandidato(){
+		
+		
+		for (int i = 0; i < Main.candidatos.length; i++) {
+			if (i==Main.candidatos.length-1 && Integer.parseInt(Main.candidatos[i][4])==1) {
+				System.out.println("Não ha mais vagas para candidatos nessa eleicao. por favor delete um usuario ou inicie outra eleicao.");
+			}
+			else if (Integer.parseInt(Main.candidatos[i][4])==0) {
+				
+			
+			System.out.println("Insira o numero do candidato:");
+			if(input.nextInt()>0){
+			Main.candidatos[i][0]= input.next();
+			}
+			else {
+				System.out.println("numero invalido. Insira o numero do candidato: ");
+				while(input.nextInt()<=0){
+				Main.candidatos[i][0]=input.next();
+				}
+			}
+			System.out.println("Insira o nome do candidato:");
+			if (input.next()!=null && input.next()!="") {
+				Main.candidatos[i][1]= input.next();	
+			}
+			else {
+				while(input.next()==null || input.next()==""){
+					Main.candidatos[i][1]= input.next();	
+				}
+				}
+			System.out.println("Insira o partido do candidato:");
+			if (input.next()!=null) {
+				Main.candidatos[i][2]= input.next();	
+			}
+			else {
+				while(input.next()==null || input.next()==""){
+					Main.candidatos[i][1]= input.next();	
+				}
+			
+			
+			
+			}
+			Main.candidatos[i][4]="1";
+			System.out.println("Candidato inserido com sucesso");
+			}
 			
 		}
-	}
-	
-	public static void main(String[] args) {
+	}	
+	// metodo para listar candidatos
+	public void listarCandidato(){
+		int numero;
+		System.out.println("Insira o numero do candidato que quer ver:");
+		System.out.println("(insira 0 para ver todos)");
+		System.out.println("Insira o numero: ");
+		numero=input.nextInt();
+		if (numero>0) {
+			for (int i = 0; i < Main.candidatos.length; i++) {
+				if (Integer.parseInt(Main.candidatos[i][0])==numero && Integer.parseInt(Main.candidatos[i][4])==1) {
+					System.out.printf("Numero: %s\nNome: %s\nPartido: %s\n\n", Main.candidatos[i][0],Main.candidatos[i][1],Main.candidatos[i][2]);
+				}
+				
+			}
+		}
+		else if (numero==0) {
+			for (int i = 0; i < Main.candidatos.length; i++) {
+				if (Integer.parseInt(Main.candidatos[i][4])==1) {
+					System.out.printf("Numero: %s\nNome: %s\nPartido: %s\n\n", Main.candidatos[i][0],Main.candidatos[i][1],Main.candidatos[i][2]);
+				}
+		}
 		
-
 	}
+		else {
+			System.out.println("Numero invalido ou não cadastrado");
+		}
+	
+	
 
 }
+	}
