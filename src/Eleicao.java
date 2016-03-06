@@ -83,4 +83,20 @@ public class Eleicao {
 	
 
 }
+	public void deletarCandidato () {
+		System.out.println("Insira o numero do candidato que deseja excluir: ");
+		int numero =input.nextInt();
+		if (numero>0) {
+			for (int i = 0; i < Main.candidatos.length; i++) {
+				if (Integer.parseInt(Main.candidatos[i][0])==numero && Integer.parseInt(Main.candidatos[i][4])==1) {
+					Main.candidatos[i][4]="0";
+					System.out.printf("Candidato excluido com sucesso", Main.candidatos[i][0],Main.candidatos[i][1],Main.candidatos[i][2]);
+				}
+			else {
+				System.out.println("Numero invalido ou não cadastrado");
+			}
+				
+			}
+		}
+	
 	}
