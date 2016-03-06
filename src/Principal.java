@@ -18,7 +18,7 @@ public class Principal {
         int opcao = Utilitarios.lerInteiroTelado();
 
         while(opcao != 5) {
-            switch (Integer.valueOf(opcao)) {
+            switch (opcao) {
                 case 1:
                     executarCadastroCandidato();
                     break;
