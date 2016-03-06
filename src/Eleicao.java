@@ -6,10 +6,23 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class Eleicao {
 	
-	Scanner input = new Scanner(System.in);
+	static Scanner input = new Scanner(System.in);
+	
+	public static void setarValores(){
+		for (int i = 0; i < Main.candidatos.length; i++) {
+			for (int j = 0; j < Main.candidatos[0].length; j++) {
+				Main.candidatos[i][j]="0";
+			}
+		}
+		for (int i = 0; i < Main.eleitores.length; i++) {
+			for (int j = 0; j < Main.eleitores[0].length; j++) {
+				Main.eleitores[i][j]="0";
+			}
+		}
+	}
 	
 	//metodo q cria candidato
-	public void cadastrarCandidato(){
+	public static void cadastrarCandidato(){
 		
 		
 		for (int i = 0; i < Main.candidatos.length; i++) {
@@ -20,29 +33,34 @@ public class Eleicao {
 				
 			
 			System.out.println("Insira o numero do candidato:");
-			if(input.nextInt()>0){
 			Main.candidatos[i][0]= input.next();
+			if(Integer.parseInt(Main.candidatos[i][0])>0){
+			//tranquilo favoravel
 			}
 			else {
-				System.out.println("numero invalido. Insira o numero do candidato: ");
+				System.out.println("numero invalido ou ja cadastrado. Insira o numero do candidato: ");
 				while(input.nextInt()<=0){
 				Main.candidatos[i][0]=input.next();
 				}
 			}
 			System.out.println("Insira o nome do candidato:");
-			if (input.next()!=null && input.next()!="") {
-				Main.candidatos[i][1]= input.next();	
+			Main.candidatos[i][1]= input.next();
+			if (Main.candidatos[i][1]!=null) {
+				//tranquilo	
 			}
 			else {
-				while(input.next()==null || input.next()==""){
+				while(Main.candidatos[i][1]==null){
+					System.out.println("Nome invalido. Insira o nome do candidato:");
 					Main.candidatos[i][1]= input.next();	
 				}
 				}
 			System.out.println("Insira o partido do candidato:");
-			if (input.next()!=null) {
-				Main.candidatos[i][2]= input.next();	
+			Main.candidatos[i][2]= input.next();	
+			if (Main.candidatos[i][2]!=null) {
+				//tranquilo
 			}
 			else {
+				System.out.println("Partido invalido. Insira o partido do candidato:");
 				while(input.next()==null || input.next()==""){
 					Main.candidatos[i][1]= input.next();	
 				}
@@ -57,7 +75,7 @@ public class Eleicao {
 		}
 	}	
 	// metodo para listar candidatos
-	public void listarCandidato(){
+	public static void listarCandidato(){
 		int numero;
 		System.out.println("Insira o numero do candidato que quer ver:");
 		System.out.println("(insira 0 para ver todos)");
@@ -86,7 +104,7 @@ public class Eleicao {
 	
 
 }
-	public void deletarCandidato () {
+	public static void deletarCandidato () {
 		System.out.println("Insira o numero do candidato que deseja excluir: ");
 		int numero =input.nextInt();
 		if (numero>0) {
@@ -104,12 +122,8 @@ public class Eleicao {
 	
 	}
 
-public class Eleitor {
-String nome;
-String cpf;
-///////////////////////////////////////////////////////////////////////////////////////////////
 
-public void cadastrarEleitor(){
+public static void cadastrarEleitor(){
 	
 	
 	for (int i = 0; i < Main.eleitores.length; i++) {
@@ -141,12 +155,13 @@ public void cadastrarEleitor(){
 		}
 		Main.eleitores[i][2]="1";
 		System.out.println("Eleitor inserido com sucesso");
+		break;
 		}
 		
 	}
-}	
+
 // metodo para listar eleitores
-public void listarEleitor(){
+public static void listarEleitor(){
 	int numero;
 	System.out.println("Insira o numero do eleitor que quer ver:");
 	System.out.println("(insira 0 para ver todos)");
@@ -192,7 +207,7 @@ public void deletarEleitor () {
 	}
 
 }
-public boolean validaCpf(String cpf){
+public static boolean validaCpf(String cpf){
 	int i =0;
 	for (i = 0; i < Main.eleitores.length; i++) {
 		if (Main.eleitores[i][1]==cpf) {
@@ -201,7 +216,7 @@ public boolean validaCpf(String cpf){
 	}
 	return Main.eleitores[i][1]==cpf;
 }
-public boolean validaCandidato(int num){
+public static boolean validaCandidato(int num){
 	int i =0;
 	for (i = 0; i < Main.eleitores.length; i++) {
 		if (Integer.parseInt(Main.eleitores[i][1])==num) {
@@ -211,7 +226,7 @@ public boolean validaCandidato(int num){
 	return Integer.parseInt(Main.eleitores[i][1])==num;
 	
 }
-public int retornaIndice(int num){
+public static int retornaIndice(int num){
 	int i =0;
 	for (i = 0; i < Main.eleitores.length; i++) {
 		if (Integer.parseInt(Main.eleitores[i][1])==num) {
@@ -223,9 +238,9 @@ public int retornaIndice(int num){
 }
 
 
-public void iniciarVotacao(String numero){
+public static int iniciarVotacao(){
 	System.out.println("Insira seu CPF: ");
-	numero=input.next();
+	String numero=input.next();
 	if (Integer.parseInt(numero)!=-1) {
 		if (validaCpf(numero)==true) {
 			System.out.println("Insira o numero do candidato que deseja votar: ");
@@ -235,8 +250,29 @@ public void iniciarVotacao(String numero){
 				Main.candidatos[ind][3]+=1;
 			}
 		}
+		
 	}
+	return Integer.parseInt(numero);
 	
+}
+public static void vencedor (int num, boolean unico){
+	if (unico==true) {
+		for (int i = 0; i < Main.candidatos.length; i++) {
+			if (Integer.parseInt(Main.candidatos[i][3])==num) {
+				System.out.printf("O novo presidente eh: %s com %d votos!!!\n",Main.candidatos[i][1],num);
+			}
+		}
+	}
+	else {
+		System.out.printf("A eleicao empatou. mais de um candidato teve %d votos\nCandidatos empatados:\n",num);
+		for (int i = 0; i < Main.candidatos.length; i++) {
+			if (Integer.parseInt(Main.candidatos[i][3])==num) {
+				System.out.printf("%s\n",Main.candidatos[i][1]);
+			}
+		}
+		
+	}
+
 }
 
 
