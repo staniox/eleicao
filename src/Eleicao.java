@@ -301,9 +301,10 @@ public static Long iniciarVotacao(){
 }
 public static void vencedor (int num, boolean unico){
 	if (unico==true) {
-		for (int i = 0; i < Main.candidatos.length; i++) {
+		for (int i = 0; i < Main.candidatos.length && num!=0; i++) {
 			if (Integer.parseInt(Main.candidatos[i][3])==num) {
 				System.out.printf("O novo presidente eh: %s com %s votos!!!\n",Main.candidatos[i][1],Main.candidatos[i][3]);
+				break;
 			}
 		}
 	}

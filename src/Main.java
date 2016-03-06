@@ -64,6 +64,7 @@ public class Main {
 			Eleicao.deletarEleitor();
 			break;
 		case 7:
+			int vencedor=0;
 			System.out.println("A eleicao esta preste a comecar, para iniciar digite 1 e para encerrar digite -1");
 			Long caso =input.nextLong();
 			if(caso==1){
@@ -73,7 +74,7 @@ public class Main {
 				caso=Eleicao.iniciarVotacao();
 				}}
 			if (caso==-1) {
-					int vencedor=0;
+					
 					boolean unicoVencedor=true;
 					for (int i = 0; i < candidatos.length; i++) {
 						if (Integer.parseInt(candidatos[i][3])>vencedor) {
