@@ -65,14 +65,14 @@ public class Main {
 			break;
 		case 7:
 			System.out.println("A eleicao esta preste a comecar, para iniciar digite 1 e para encerrar digite -1");
-			int caso =input.nextInt();
-			switch (caso) {
-			case 1:
+			Long caso =input.nextLong();
+			if(caso==1){
+			
 				caso =Eleicao.iniciarVotacao();
 				while(caso!=-1){
-				Eleicao.iniciarVotacao();
-				}
-				if (caso==-1) {
+				caso=Eleicao.iniciarVotacao();
+				}}
+			else if (caso==-1) {
 					int vencedor=0;
 					boolean unicoVencedor=true;
 					for (int i = 0; i < candidatos.length; i++) {
@@ -89,11 +89,7 @@ public class Main {
 					Eleicao.vencedor(vencedor, unicoVencedor);
 					
 				}
-				break;
-
-			default:
-				break;
-			}
+			
 			
 			break;
 

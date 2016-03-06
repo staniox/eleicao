@@ -258,7 +258,7 @@ public static boolean validaCpf(String cpf){
 			break;
 		}
 	}
-	return Main.eleitores[i][1]==cpf;
+	return Main.eleitores[i-1][1]==cpf;
 }
 public static boolean validaCandidato(int num){
 	int i =0;
@@ -282,21 +282,21 @@ public static int retornaIndice(int num){
 }
 
 
-public static int iniciarVotacao(){
+public static Long iniciarVotacao(){
 	System.out.println("Insira seu CPF: ");
 	String numero=input.next();
-	if (Integer.parseInt(numero)!=-1) {
-		if (validaCpf(numero)==true) {
+	if (Long.parseLong(numero)!=-1) {
+		
 			System.out.println("Insira o numero do candidato que deseja votar: ");
 			int numCandidato=input.nextInt();
 			if (validaCandidato(numCandidato)) {
 				int ind =retornaIndice(numCandidato);
 				Main.candidatos[ind][3]+=1;
 			}
-		}
+		
 		
 	}
-	return Integer.parseInt(numero);
+	return Long.parseLong(numero);
 	
 }
 public static void vencedor (int num, boolean unico){
