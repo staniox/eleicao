@@ -7,28 +7,10 @@ public class Eleicao {
 
     static Scanner input = new Scanner(System.in);
 
-    
     /**
-     * Aumenta o tamanho do array de candidatos.
+     * Grava um novo eleitor.
+     * @param novo
      */
-    public static void gravarNovoCandidato(Candidato novo) {
-        
-
-        Candidato[] novoArray = new Candidato[Main.candidatos.length + 1];
-
-        for(int i = 0; i < Main.candidatos.length; i++) {
-        	if (Main.candidatos[i].numero==-1) {
-        		novoArray[i] = new Candidato();
-            	Main.candidatos[i]= new Candidato();
-                novoArray[i] = Main.candidatos[i];	
-			}
-        	
-        }
-
-        Main.candidatos = novoArray;
-
-        Main.candidatos[Main.candidatos.length - 1] = novo;
-    }
     public static void gravarNovoEleitor(Eleitor novo) {
         if(novo.cpf == "-1") {
             
@@ -79,6 +61,31 @@ public class Eleicao {
     }
 
     /**
+     * Aumenta o tamanho do array de candidatos.
+     */
+    public static void gravarNovoCandidato(Candidato novo) {
+        // Verifica se há uma posição vazia no array de candidatos (reaproveitar memória alocada).
+        for(int i = 0; i < Main.candidatos.length; i++) {
+            if(Main.candidatos[i] == null) {
+                Main.candidatos[i] = novo;
+                return; // Sai do método, pois já era.
+            }
+        }
+
+        Candidato[] novoArray = new Candidato[Main.candidatos.length + 1];
+
+        // Copia o array antigo para o novo array.
+        for(int i = 0; i < Main.candidatos.length; i++) {
+            novoArray[i] = Main.candidatos[i];
+        }
+
+        // Insere o novo candidato na última posição do novo array.
+        novoArray[novoArray.length - 1] = novo;
+
+        Main.candidatos = novoArray;
+    }
+
+    /**
      * Método para listar candidatos.
      */
     public static void listarCandidato() {
@@ -92,8 +99,9 @@ public class Eleicao {
         		if (numero==Main.candidatos[i].numero) {
         			Candidato candidato = Main.candidatos[i];
                     System.out.println("Número: " + candidato.numero);
-                    System.out.println("Nome: " + candidato.nome+"\n");	
-                    System.out.println("Partido: " + candidato.partido+"\n");
+                    System.out.println("Nome: " + candidato.nome);
+                    System.out.println("Partido: " + candidato.partido);
+                    System.out.println();
                     return;
 				}
                 
@@ -227,18 +235,27 @@ public class Eleicao {
         return -2;
 
     }
+
+    /**
+     * Valida se o CPF do eleitor já está cadastrado.
+     * @param cpf
+     * @return
+     */
     public static int validaEleitor(String cpf) {
+        if(cpf == null) {
+            System.out.println("O CPF do eleitor não pode conter o valor null.");
+            return -3;
+        }
+
         int i = 0;
-        for (i = 0; i < Main.candidatos.length; i++) {
-            if (Main.eleitores[i].cpf == cpf) {
+        for (i = 0; i < Main.eleitores.length; i++) {
+            if (Main.eleitores[i].cpf.equals(cpf)) {
                 return i;
             }
         }
         return -2;
 
     }
-
-   
 
 
     public static Long iniciarVotacao() {
@@ -307,7 +324,6 @@ public class Eleicao {
         Eleicao.vencedor(vencedor, unicoVencedor);
 
     }
-
 
 }
 
