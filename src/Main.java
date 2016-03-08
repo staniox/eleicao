@@ -3,34 +3,17 @@ import java.util.Scanner;
 public class Main {
 
     public static Candidato[] candidatos;
-    public static String[][] eleitores;
+    public static Eleitor[] eleitores;
 
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
-        System.out.printf("Bem vindo ao sistema de eleicoes presidenciais de ultima geracao\n\n- antes de começar eh necessario que informe quantos candidatos participarão desta eleicao.\n insira o numero de candidatos: ");
-        int qtd = input.nextInt();
-        if (qtd > 0) {
-            System.out.println("Quantidade salva com sucesso!!");
-        } else {
-            while (qtd <= 0) {
-                System.out.println("Quantidade invalida. Insira um numero valido: ");
-                qtd = input.nextInt();
-            }
-        }
-        System.out.printf("insira o numero maximo de eleitores que esta eleição pode ter: ");
-        int qtdEleitor = input.nextInt();
-        if (qtdEleitor > 0) {
-            System.out.println("Quantidade salva com sucesso!!");
-        } else {
-            while (qtdEleitor <= 0) {
-                System.out.println("Quantidade invalida. Insira um numero valido: ");
-                qtd = input.nextInt();
-            }
-        }
-        candidatos = new Candidato[qtd];
-        eleitores = new String[qtdEleitor][3];
-        Eleicao.setarValores();
+        candidatos = new Candidato[1];
+        candidatos[0]=new Candidato();
+        eleitores = new Eleitor[1];
+        eleitores[0]= new Eleitor();
+        
+        
         int menu = 0;
         while (menu != 8) {
             System.out.printf("Bem vindo ao menu do sistema\n (para acessar um menu digite o numero correspondente a ele)\n");
@@ -74,21 +57,7 @@ public class Main {
                         }
                     }
                     if (caso == -1) {
-                        int vencedor = 0;
-                        boolean unicoVencedor = true;
-                        for (int i = 0; i < candidatos.length; i++) {
-                            if (Integer.parseInt(candidatos[i][3]) > vencedor) {
-                                vencedor = Integer.parseInt(candidatos[i][3]);
-                                unicoVencedor = true;
-                            } else if (Integer.parseInt(candidatos[i][3]) == vencedor && vencedor > 0) {
-                                vencedor = Integer.parseInt(candidatos[i][3]);
-                                unicoVencedor = false;
-                            }
-
-                        }
-                        System.out.println();
-                        Eleicao.vencedor(vencedor, unicoVencedor);
-
+                        
 
                     }
 

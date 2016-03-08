@@ -1,8 +1,9 @@
 /**
- * Created by pkgoncalves on 3/7/16.
+ * classe candidato
  */
 public class Candidato {
-    int numero;
-    String nome;
-    String partido;
+    int numero=-1;
+    String nome="";
+    String partido="";
+    int votos=0;
 }
