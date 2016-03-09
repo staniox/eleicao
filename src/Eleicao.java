@@ -43,21 +43,26 @@ public class Eleicao {
             novoRegistro.numero = input.nextInt();
         }
 
-        System.out.println("Insira o nome do candidato:");
+        System.out.println("Insira o nome do candidato: ");
         novoRegistro.nome = input.next();
 
         System.out.println("Insira o partido do candidato:");
         novoRegistro.partido = input.next();
 
         for (int i = 0; i < Main.candidatos.length; i++) {
-            if (Main.candidatos[i].numero == novoRegistro.numero) {
+           if (Main.candidatos[i]==null || Main.candidatos[i].numero==0 ) {
+        	   gravarNovoCandidato(novoRegistro);
+               System.out.println("Candidato inserido com sucesso");
+               return;
+			
+		}
+            else  if (Main.candidatos[i].numero == novoRegistro.numero) {
                 System.out.println("Candidato já cadastrado com o número " + novoRegistro.numero);
                 return;
             }
         }
 
-        gravarNovoCandidato(novoRegistro);
-        System.out.println("Candidato inserido com sucesso");
+       
     }
 
     /**
@@ -110,7 +115,10 @@ public class Eleicao {
         	 //array com a classe Candidato.
             for(int i = 0; i < Main.candidatos.length; i++) {
                 
-            	if (Main.candidatos[i].numero!=-1) {
+            	if (Main.candidatos[i]==null || Main.candidatos[i].numero==0 ) {
+            		continue;
+				}
+            	else {
             		Candidato candidato = new Candidato();
                     candidato=Main.candidatos[i];
                     System.out.println("Número: " + candidato.numero);
@@ -134,13 +142,13 @@ public class Eleicao {
             for (int i = 0; i < Main.candidatos.length; i++) {
                 if (Main.candidatos[i].numero == numero) {
                     Main.candidatos[i]= null;
-                    System.out.printf("Candidato excluido com sucesso");
-                    break;
-                } else {
-                    System.out.println("Numero invalido ou não cadastrado");
-                }
+                    System.out.println("Candidato excluido com sucesso");
+                    System.out.println();
+                    return;
+                } 
 
             }
+            System.out.println("Numero invalido ou não cadastrado");
         }
 
     }
@@ -177,9 +185,9 @@ public class Eleicao {
         System.out.println("(insira 0 para ver todos)");
         System.out.println("Insira o cpf: ");
         cpf = input.next();
-        if (Long.parseLong(cpf) >0) {
+        if (cpf!=null) {
         	for(int i = 0; i < Main.eleitores.length; i++) {
-        		if (cpf==Main.eleitores[i].cpf) {
+        		if (Main.eleitores[i].cpf.equals(cpf)) {
         			Eleitor eleitor = Main.eleitores[i];
                     
                     System.out.println("Nome: " + eleitor.nome);
@@ -249,7 +257,10 @@ public class Eleicao {
 
         int i = 0;
         for (i = 0; i < Main.eleitores.length; i++) {
-            if (Main.eleitores[i].cpf.equals(cpf)) {
+        	if (Main.eleitores[i]==null ) {
+				continue;
+			}
+        	else if (Main.eleitores[i].cpf.equals(cpf)) {
                 return i;
             }
         }

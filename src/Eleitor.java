@@ -1,7 +1,7 @@
 
 public class Eleitor {
 
-	String cpf="-1";
+	String cpf;
 	String nome;
 	boolean votou;
 }
