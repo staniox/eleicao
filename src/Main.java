@@ -57,7 +57,8 @@ public class Main {
                         }
                     }
                     if (caso == -1) {
-                        
+                    	Eleicao.verificaVencedor();
+                       
 
                     }
 

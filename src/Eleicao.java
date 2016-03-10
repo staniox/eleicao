@@ -12,11 +12,12 @@ public class Eleicao {
      * @param novo
      */
     public static void gravarNovoEleitor(Eleitor novo) {
-        if(novo.cpf == "-1") {
-            
-            Main.eleitores[0] = novo;
-            return;
-        }
+    	 for(int i = 0; i < Main.eleitores.length; i++) {
+             if(Main.eleitores[i] == null) {
+                 Main.eleitores[i] = novo;
+                 return; // Sai do método, pois já era.
+             }
+         }
 
         Eleitor[] novoArray = new Eleitor[Main.eleitores.length + 1];
 
@@ -25,9 +26,10 @@ public class Eleicao {
         	novoArray[i] = Main.eleitores[i];
         }
 
+        novoArray[novoArray.length - 1] = novo;
         Main.eleitores = novoArray;
 
-        Main.eleitores[Main.eleitores.length - 1] = novo;
+        
     }
 
     /**
@@ -160,7 +162,7 @@ public class Eleicao {
         
         System.out.println("Insira o cpf do eleitor:");
         novoRegistro.cpf = input.next();
-        while(novoRegistro.cpf.length()<11){
+        while(novoRegistro.cpf.length()!=11){
         	System.out.println("CPF invalido."+"\n"+"CPF deve conter 11 algarismos."+"\n"+" Insira o CPF do eleitor: ");
             novoRegistro.cpf = input.next();
         }
@@ -168,7 +170,10 @@ public class Eleicao {
         
 
         for (int i = 0; i < Main.eleitores.length; i++) {
-            if (Main.eleitores[i].cpf == novoRegistro.cpf) {
+        	if (Main.eleitores[i]==null) {
+				continue;
+			}
+            if (novoRegistro.cpf.equals(Main.eleitores[i].cpf )) {
                 System.out.println("Eleitor já cadastrado com o cpf " + novoRegistro.cpf);
                 return;
             }
@@ -180,14 +185,18 @@ public class Eleicao {
 
 // metodo para listar eleitores
     public static void listarEleitor() {
-        String cpf;
+    	
+    
         System.out.println("Insira o cpf do eleitor que quer ver:");
         System.out.println("(insira 0 para ver todos)");
         System.out.println("Insira o cpf: ");
-        cpf = input.next();
-        if (cpf!=null) {
+    	String cpf = input.next();
+    	if (Long.parseLong(cpf) !=0) {
         	for(int i = 0; i < Main.eleitores.length; i++) {
-        		if (Main.eleitores[i].cpf.equals(cpf)) {
+        		if (Main.eleitores[i].nome==null) {
+					continue;
+				}
+        		else if (cpf.equals(Main.eleitores[i].cpf)) {
         			Eleitor eleitor = Main.eleitores[i];
                     
                     System.out.println("Nome: " + eleitor.nome);
@@ -196,13 +205,18 @@ public class Eleicao {
 				}
                 
             }
-        } else if (Long.parseLong(cpf) ==0) {
+    } else if (Long.parseLong(cpf) ==0) {
         	 //array com a classe Eleitor.
             for(int i = 0; i < Main.eleitores.length; i++) {
-                Eleitor eleitor = Main.eleitores[i];
                 
-                System.out.println("Nome: " + eleitor.nome);
-                System.out.println("CPF: " + eleitor.cpf+"\n");
+                if (Main.eleitores[i]!=null) {
+                	 if (Main.eleitores[i].nome!=null) {
+                	Eleitor eleitor = Main.eleitores[i];
+                	 System.out.println("Nome: " + eleitor.nome);
+                     System.out.println("CPF: " + eleitor.cpf+"\n");
+                	 }
+                	 }
+               
             }
 
         } else {
@@ -220,7 +234,10 @@ public class Eleicao {
         String numero = input.next();
         if (Long.parseLong(numero) > 0) {
             for (int i = 0; i < Main.eleitores.length; i++) {
-                if (Main.eleitores[i].cpf == numero) {
+            	if (Main.eleitores[i].nome==null) {
+					continue;
+				}
+                if (Main.eleitores[i].cpf.equals(numero)) {
                     Main.eleitores[i]= null;
                     System.out.printf("Eleitor excluido com sucesso\n\n");
                     break;
@@ -257,7 +274,7 @@ public class Eleicao {
 
         int i = 0;
         for (i = 0; i < Main.eleitores.length; i++) {
-        	if (Main.eleitores[i]==null ) {
+        	if (Main.eleitores[i].nome==null ) {
 				continue;
 			}
         	else if (Main.eleitores[i].cpf.equals(cpf)) {
