@@ -49,6 +49,7 @@ public class Main {
                 case 7:
                     System.out.println("para a eleicao funcionar corretamente eh necessario que tenha cadastrado ao menos 2 candidatos e 3 eleitores. se deseja cadastrar cadastrar algum desses digite -1");
                     System.out.println("A eleicao esta preste a comecar, para iniciar digite 1 e para encerrar digite -1 no campo CPF ");
+                    System.out.println("Após finalizada a eleicao o sistema retorna o(s) vencedor(es) e encerra o programa");
                     Long caso = input.nextLong();
                     if (caso == 1) {
 
