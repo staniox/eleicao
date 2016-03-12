@@ -46,10 +46,10 @@ public class Eleicao {
         }
 
         System.out.println("Insira o nome do candidato: ");
-        novoRegistro.nome = input.next();
+        novoRegistro.nome = input.next()+input.nextLine();
 
         System.out.println("Insira o partido do candidato:");
-        novoRegistro.partido = input.next();
+        novoRegistro.partido = input.next()+input.nextLine();
 
         for (int i = 0; i < Main.candidatos.length; i++) {
            if (Main.candidatos[i]==null || Main.candidatos[i].numero==0 ) {
@@ -158,7 +158,7 @@ public class Eleicao {
         Eleitor novoRegistro = new Eleitor();
 
         System.out.println("Insira o nome do eleitor:");
-        novoRegistro.nome = input.next();
+        novoRegistro.nome = input.next()+input.nextLine();
         
         System.out.println("Insira o cpf do eleitor:");
         novoRegistro.cpf = input.next();
@@ -281,6 +281,7 @@ public class Eleicao {
                 return i;
             }
         }
+        
         return -2;
 
     }
@@ -290,8 +291,11 @@ public class Eleicao {
         System.out.println("Insira seu CPF: ");
         String numero = input.next();
         int indiceEleitor = validaEleitor(numero);
-
+        if (indiceEleitor>=0 && Main.eleitores[indiceEleitor].votou==true ) {
+ 			System.out.println("O Eleitor so pode votar uma vez por eleicao");
+ 		}
         if (indiceEleitor >=0 && Main.eleitores[indiceEleitor].votou==false &&indiceEleitor!=-2) {
+        	
 
             System.out.println("Insira o numero do candidato que deseja votar: ");
             int numCandidato = input.nextInt();
@@ -300,19 +304,19 @@ public class Eleicao {
                 
                 Main.candidatos[ind].votos += 1;
                 Main.eleitores[indiceEleitor].votou=true;
-                System.out.println("Voto computado com sucesso para"+Main.candidatos[ind].nome+"!!!");
+                System.out.println("Voto computado com sucesso para "+Main.candidatos[ind].nome+"!!!");
                 System.out.println();
 
             }
             if (validaCandidato(numCandidato) == -2) {
-                System.out.println("Voto nao computado. verifique onumero do candidato");
+                System.out.println("Voto nao computado. verifique o numero do candidato");
                 return (long) 0;
             }
-
+           
 
         }
         return Long.parseLong(numero);
-
+        
 
     }
 
@@ -320,12 +324,12 @@ public class Eleicao {
         if (unico == true) {
             for (int i = 0; i < Main.candidatos.length && num != 0; i++) {
                 if (Main.candidatos[i].votos == num) {
-                    System.out.printf("O novo presidente eh: %s com %s votos!!!\n\n", Main.candidatos[i].nome, Main.candidatos[i].votos);
+                    System.out.printf("O novo presidente eh: %s com %s voto(s)!!!\n\n", Main.candidatos[i].nome, Main.candidatos[i].votos);
 
                 }
             }
         } else {
-            System.out.printf("A eleicao empatou. mais de um candidato teve %d votos\nCandidatos empatados:\n", num);
+            System.out.printf("A eleicao empatou. mais de um candidato teve %d voto(s)\nCandidatos empatados:\n", num);
             for (int i = 0; i < Main.candidatos.length; i++) {
                 if (Main.candidatos[i].votos == num) {
                     System.out.printf("%s\n", Main.candidatos[i].nome);

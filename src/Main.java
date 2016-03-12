@@ -26,6 +26,7 @@ public class Main {
             System.out.println("7 - Iniciar Eleicao");
             System.out.println("8 - Encerrar programa");
             menu = input.nextInt();
+           
             switch (menu) {
                 case 1:
                     Eleicao.cadastrarCandidato();
@@ -55,12 +56,13 @@ public class Main {
                         while (caso != -1) {
                             caso = Eleicao.iniciarVotacao();
                         }
-                    }
-                    if (caso == -1) {
+                    }if (caso == -1) {
                     	Eleicao.verificaVencedor();
-                       
+                    	System.out.println("FIM de Eleicao.");
+                    	menu=8;
 
                     }
+                    
 
 
                     break;
